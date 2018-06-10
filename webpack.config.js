@@ -14,7 +14,7 @@ module.exports = {
       path: path.resolve(__dirname, '_bundles'),
       filename: '[name].js',
       libraryTarget: 'umd',
-      library: 'abonnement.js',
+      library: 'abonnementJS',
       umdNamedDefine: true
     },
     resolve: {
