@@ -2,7 +2,7 @@
   "name": "abonnement-js",
   "version": "0.0.1",
   "description": "lightweight naive event subscription",
-  "main": "./lib/abonnement.ts",
+  "main": "./lib/abonnement.js",
   "types": "./lib/abonnement.d.ts",
   "scripts": {
     "test": "karma start  karma.conf.js --single-run",
