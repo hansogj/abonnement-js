@@ -1,6 +1,6 @@
 {
   "name": "abonnement-js",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "lightweight naive event subscription",
   "main": "./lib/abonnement.ts",
   "types": "./lib/abonnement.d.ts",
