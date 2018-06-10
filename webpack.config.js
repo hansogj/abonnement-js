@@ -7,8 +7,8 @@ module.exports = {
   devtool: debug ? "inline-sourcemap" : null,
   
     entry: {
-      'abonnement': './src/abonnement.ts',
-      'abonnement.min': './src/abonnement.ts'
+      'abonnementJS': './src/abonnement.ts',
+      'abonnementJS.min': './src/abonnement.ts'
     },
     output: {
       path: path.resolve(__dirname, '_bundles'),

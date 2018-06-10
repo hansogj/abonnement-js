@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "lightweight naive event subscription",
   "main": "./lib/abonnement.ts",
-  "types": "types.d.ts",
+  "types": "./lib/abonnement.d.ts",
   "scripts": {
     "test": "karma start  karma.conf.js --single-run",
     "test:watch": "karma start  karma.conf.js --browsers=Chrome",
