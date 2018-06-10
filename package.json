@@ -1,5 +1,5 @@
 {
-  "name": "abonnementJS",
+  "name": "abonnement-js",
   "version": "1.0.0",
   "description": "lightweight naive event subscription",
   "main": "./lib/abonnement.ts",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hansogj/abonnementJS.git"
+    "url": "git+https://github.com/hansogj/abonnement-js.git"
   },
   "keywords": [
     "event",
@@ -25,9 +25,9 @@
   "author": "hansogj@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hansogj/abonnementJS/issues"
+    "url": "https://github.com/hansogj/abonnement-js/issues"
   },
-  "homepage": "https://github.com/hansogj/abonnementJS#readme",
+  "homepage": "https://github.com/hansogj/abonnement-js#readme",
   "devDependencies": {
     "@types/jasmine": "^2.8.2",
     "@types/node": "^8.0.0",

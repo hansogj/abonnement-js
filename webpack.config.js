@@ -7,14 +7,14 @@ module.exports = {
   devtool: debug ? "inline-sourcemap" : null,
   
     entry: {
-      'abonnementJS': './src/abonnement.ts',
-      'abonnementJS.min': './src/abonnement.ts'
+      'abonnement-js': './src/abonnement.ts',
+      'abonnement-js.min': './src/abonnement.ts'
     },
     output: {
       path: path.resolve(__dirname, '_bundles'),
       filename: '[name].js',
       libraryTarget: 'umd',
-      library: 'abonnementJS',
+      library: 'abonnement-js',
       umdNamedDefine: true
     },
     resolve: {
