@@ -14,8 +14,6 @@ export class Abonnement<T> {
         this.aktuellVerdi = init;
     }
 
-
-
     abonner<T>(abonnent: (nyVerdi: T, gmlVerdi?: T) => void, callOnInit: boolean = true): number {
         const length: number = this.abonnenter.push(abonnent);
         if (this.aktuellVerdi && callOnInit) {
@@ -85,4 +83,5 @@ export class JoinedAbonnement<T> extends Abonnement<T> {
         this.avsluttListe.forEach((id, index) => this.list[index].avslutt(id));
         super.avslutt(id);
     }
+    
 }

@@ -14,7 +14,7 @@ module.exports = {
       path: path.resolve(__dirname, '_bundles'),
       filename: '[name].js',
       libraryTarget: 'umd',
-      library: 'defined',
+      library: 'abonnement.js',
       umdNamedDefine: true
     },
     resolve: {
@@ -22,20 +22,10 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        minimize: true,
-        sourceMap: true,
-        include: /\.min\.js$/,
-      })
+      new webpack.optimize.UglifyJsPlugin({ minimize: true, sourceMap: true, include: /\.min\.js$/, }),
     ],
     module: {
-      loaders: [{
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: /node_modules/,
-        query: {
-          declaration: false,
-        }
+      loaders: [{ test: /\.tsx?$/, loader: 'awesome-typescript-loader', exclude: /node_modules/, query: { declaration: false, }
       }]
     }
   }
