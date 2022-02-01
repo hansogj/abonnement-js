@@ -1,50 +1,51 @@
 {
-  "name": "abonnement-js",
-  "version": "0.0.1",
-  "description": "lightweight naive event subscription",
-  "main": "./lib/abonnement.js",
-  "types": "./lib/abonnement.d.ts",
-  "scripts": {
-    "test": "karma start  karma.conf.js --single-run",
-    "test:watch": "karma start  karma.conf.js --browsers=Chrome",
-    "bundle": "npm run clean && npm run test && npm run build",
-    "clean": "rm -rf ./dist ./lib/ ./lib-esm/ ./_bundles ",
-    "build": "tsc && tsc -m es6 --outDir lib-esm &&  webpack",
-    "prepublish": "npm run bundle"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hansogj/abonnement-js.git"
-  },
-  "keywords": [
-    "event",
-    "typescript",
-    "js",
-    "subscription"
-  ],
-  "author": "hansogj@gmail.com",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hansogj/abonnement-js/issues"
-  },
-  "homepage": "https://github.com/hansogj/abonnement-js#readme",
-  "devDependencies": {
-    "@types/jasmine": "^2.8.2",
-    "@types/node": "^8.0.0",
-    "array.defined": "^2.1.0",
-    "awesome-typescript-loader": "^3.4.1",
-    "browserify": "^14.5.0",
-    "jasmine-core": "^2.8.0",
-    "karma": "^1.7.1",
-    "karma-browserify": "^5.1.2",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.0",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-typescript": "^3.0.8",
-    "tsify": "^3.0.3",
-    "tslint": "^5.8.0",
-    "typescript": "^2.6.2",
-    "webpack": "^3.9.1"
-  },
-  "dependencies": {}
+    "name": "abonnement-js",
+    "version": "0.0.1",
+    "description": "lightweight naive event subscription",
+    "main": "./lib/abonnement.js",
+    "types": "./lib/abonnement.d.ts",
+    "scripts": {
+        "test": "karma start  karma.conf.js --single-run",
+        "test:watch": "karma start  karma.conf.js --browsers=Chrome",
+        "bundle": "npm run clean && npm run test && npm run build",
+        "clean": "rm -rf ./dist ./lib/ ./lib-esm/ ./_bundles ",
+        "build": "tsc && tsc -m es6 --outDir lib-esm &&  webpack",
+        "prepublish": "npm run bundle"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hansogj/abonnement-js.git"
+    },
+    "keywords": [
+        "event",
+        "typescript",
+        "js",
+        "subscription"
+    ],
+    "author": "hansogj@gmail.com",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hansogj/abonnement-js/issues"
+    },
+    "homepage": "https://github.com/hansogj/abonnement-js#readme",
+    "devDependencies": {
+        "@types/jasmine": "^2.8.2",
+        "@types/node": "^8.0.0",
+        "awesome-typescript-loader": "^3.4.1",
+        "browserify": "^14.5.0",
+        "jasmine-core": "^2.8.0",
+        "karma": "^1.7.1",
+        "karma-browserify": "^5.1.2",
+        "karma-chrome-launcher": "^2.2.0",
+        "karma-jasmine": "^1.1.0",
+        "karma-phantomjs-launcher": "^1.0.4",
+        "karma-typescript": "^3.0.8",
+        "tsify": "^3.0.3",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.2",
+        "webpack": "^3.9.1"
+    },
+    "dependencies": {
+        "array.defined": "^2.1.0"
+    }
 }
