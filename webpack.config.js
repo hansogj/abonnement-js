@@ -1,31 +1,45 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
-var path = require('path');
-
-module.exports = {
-  context: __dirname,
-  devtool: debug ? "inline-sourcemap" : null,
-  
-    entry: {
-      'abonnement-js': './src/abonnement.ts',
-      'abonnement-js.min': './src/abonnement.ts'
-    },
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
+const path = require("path");
+const isProduction = process.env.NODE_ENV == "production";
+const config = {
+    entry: './src/abonnement.ts',
     output: {
-      path: path.resolve(__dirname, '_bundles'),
-      filename: '[name].js',
-      libraryTarget: 'umd',
-      library: 'abonnement-js',
-      umdNamedDefine: true
+        path: path.resolve(__dirname, "lib"),
+        filename: 'abonnement.js',
+        libraryTarget: 'umd',
+        library: 'abonnement'
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
-    devtool: 'source-map',
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({ minimize: true, sourceMap: true, include: /\.min\.js$/, }),
-    ],
+    devtool: "source-map",
+    plugins: [],
     module: {
-      loaders: [{ test: /\.tsx?$/, loader: 'awesome-typescript-loader', exclude: /node_modules/, query: { declaration: false, }
-      }]
+        rules: [
+            {
+                test: /\.(js|jsx)$/i,
+                loader: "babel-loader",
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+                type: "asset",
+            },
+
+            {
+                test: /\.(ts|tsx)$/i,
+                loader: 'ts-loader',
+                exclude: ['/node_modules/'],
+            },
+
+        ],
+    },
+};
+
+module.exports = () => {
+    if (isProduction) {
+        config.mode = "production";
+    } else {
+        config.mode = "development";
     }
-  }
+    return config;
+};

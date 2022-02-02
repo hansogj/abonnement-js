@@ -1,5 +1,4 @@
 import { defined } from 'array.defined';
-import  'array.defined/lib/polyfill';
 
 interface IndexedObject {
     [key: string]:any;
