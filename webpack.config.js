@@ -7,7 +7,8 @@ const config = {
         path: path.resolve(__dirname, "lib"),
         filename: 'abonnement.js',
         libraryTarget: 'umd',
-        library: 'abonnement'
+        library: 'abonnement',
+        globalObject: "this",
     },
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
