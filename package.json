@@ -21,6 +21,10 @@
         "subscription"
     ],
     "author": "hansogj@gmail.com",
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/hansogj/abonnement-js/issues"
