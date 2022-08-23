@@ -1,5 +1,5 @@
 {
-    "name": "abonnement-js",
+    "name": "@hansogj/abonnement-js",
     "version": "2.1.0",
     "description": "lightweight naive event subscription",
     "main": "./lib/abonnement.js",
