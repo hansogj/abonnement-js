@@ -2,8 +2,8 @@ import {
   Abonnement,
   JoinedAbonnement,
   AlleAbonnementer,
-} from "../src/abonnement";
-import "array.defined";
+} from '../src/abonnement';
+import '@hansogj/array.utils';
 
 let stringAbonnement: Abonnement<String>;
 let numberAbonnement: Abonnement<number>;
@@ -11,8 +11,8 @@ let stringAbonnent: jest.Mock;
 let numberAbonnent: jest.Mock;
 let stringAbonnentId: number;
 let numberAbonnentId: number;
-const initiellVerdi: string = "initiell verdi";
-const nyVerdi: string = "random oppdatering av verdi";
+const initiellVerdi: string = 'initiell verdi';
+const nyVerdi: string = 'random oppdatering av verdi';
 const lastCall = (spy: jest.Mock) =>
   []
     .concat(spy.mock.calls)
@@ -20,7 +20,7 @@ const lastCall = (spy: jest.Mock) =>
     .flatMap((e) => e)
     .shift();
 
-describe("Abonnement", () => {
+describe('Abonnement', () => {
   afterEach(jest.restoreAllMocks);
   beforeEach(() => {
     stringAbonnement = new Abonnement<String>(initiellVerdi);
@@ -31,13 +31,13 @@ describe("Abonnement", () => {
     numberAbonnentId = numberAbonnement.abonner(numberAbonnent);
   });
 
-  describe("setter opp abonnement", () => {
-    it("abonnent er lagt til liste over abonnenter", () => {
+  describe('setter opp abonnement', () => {
+    it('abonnent er lagt til liste over abonnenter', () => {
       expect(stringAbonnement.__test.abonnenter.length).toEqual(1);
       expect(numberAbonnement.__test.abonnenter.length).toEqual(1);
     });
 
-    it("listen over abonnenter vokser", () => {
+    it('listen over abonnenter vokser', () => {
       stringAbonnement.abonner(() => {});
       stringAbonnement.abonner(() => {});
       stringAbonnement.abonner(() => {});
@@ -45,60 +45,60 @@ describe("Abonnement", () => {
       expect(stringAbonnement.__test.abonnenter.length).toEqual(5);
     });
 
-    it("abonnement kalles umiddelbart hvis initiell verdi er angitt", () => {
+    it('abonnement kalles umiddelbart hvis initiell verdi er angitt', () => {
       expect(stringAbonnent).toHaveBeenCalledTimes(1);
       expect(stringAbonnent).toHaveBeenCalledWith(initiellVerdi);
       expect(numberAbonnent).not.toHaveBeenCalled();
     });
   });
 
-  describe("abonennt kalles ved oppdatering", () => {
+  describe('abonennt kalles ved oppdatering', () => {
     beforeEach(() => stringAbonnement.varsle(nyVerdi));
     beforeEach(() => numberAbonnement.varsle(22));
 
-    it("abonnent blir kallet", () => {
+    it('abonnent blir kallet', () => {
       expect(stringAbonnent).toHaveBeenCalledTimes(2);
       expect(numberAbonnent).toHaveBeenCalledTimes(1);
     });
 
-    it("abonnent oppdateres med ny verdi", () => {
+    it('abonnent oppdateres med ny verdi', () => {
       expect(lastCall(stringAbonnent)).toEqual(nyVerdi);
       expect(lastCall(numberAbonnent)).toEqual(22);
     });
   });
 
-  describe("abonnement skal ikke kalles initielt hvis angitt ", () => {
+  describe('abonnement skal ikke kalles initielt hvis angitt ', () => {
     let annenSpion: jest.Mock;
     beforeEach(() => {
       annenSpion = jest.fn();
       stringAbonnement.abonner(annenSpion, false);
     });
 
-    it("er ikke kalt verdi", () => expect(annenSpion).not.toHaveBeenCalled());
-    describe("men så", () => {
+    it('er ikke kalt verdi', () => expect(annenSpion).not.toHaveBeenCalled());
+    describe('men så', () => {
       beforeEach(() => stringAbonnement.varsle(nyVerdi));
-      it("er ikke kalt verdi", () =>
+      it('er ikke kalt verdi', () =>
         expect(annenSpion).toHaveBeenCalledTimes(1));
     });
   });
 
-  describe("abonnement holder på aktuell verdi ", () => {
+  describe('abonnement holder på aktuell verdi ', () => {
     beforeEach(() => stringAbonnement.varsle(nyVerdi));
 
-    it("forventet verdi", () => {
+    it('forventet verdi', () => {
       expect(stringAbonnement.verdi).toEqual(nyVerdi);
       expect(numberAbonnement.verdi).toEqual(undefined);
     });
   });
 
-  describe("abonnent kalles med oppdatering + utgått verdi", () => {
+  describe('abonnent kalles med oppdatering + utgått verdi', () => {
     beforeEach(() => numberAbonnement.varsle(0));
     beforeEach(() => numberAbonnement.varsle(22));
-    it("abonnent oppdatert med ny og gammel verdi", () =>
+    it('abonnent oppdatert med ny og gammel verdi', () =>
       expect(numberAbonnent.mock.calls.pop()).toEqual([22, 0]));
   });
 
-  describe("abonnent skal kunne melde seg av abonnementet", () => {
+  describe('abonnent skal kunne melde seg av abonnementet', () => {
     beforeEach(() => {
       stringAbonnement.avslutt(stringAbonnentId);
       numberAbonnement.avslutt(numberAbonnentId);
@@ -106,12 +106,12 @@ describe("Abonnement", () => {
       numberAbonnement.varsle(22);
     });
 
-    it("abonnent er fjernet fra liste over abonnenter", () => {
+    it('abonnent er fjernet fra liste over abonnenter', () => {
       expect(stringAbonnement.__test.abonnenter.length).toEqual(0);
       expect(numberAbonnement.__test.abonnenter.length).toEqual(0);
     });
 
-    it("abonnent blir ikke kallt selvom abonnementstilbyder oppdaterer", () => {
+    it('abonnent blir ikke kallt selvom abonnementstilbyder oppdaterer', () => {
       expect(stringAbonnent).toHaveBeenCalledTimes(1);
       expect(stringAbonnent).toHaveBeenCalledWith(initiellVerdi);
       expect(numberAbonnent).not.toHaveBeenCalled();
@@ -119,96 +119,126 @@ describe("Abonnement", () => {
   });
 });
 
-describe("JoinedAbonnement", () => {
-  let stringAbonnement: Abonnement<string>;
-  let numberAbonnement: Abonnement<number>;
+describe('JoinedAbonnement', () => {
+  let joinedAbonnementId: number;
   let joinedAbonnement: Abonnement<any>;
   let joinedAbonnent: jest.Mock;
+  beforeEach(() => {
+    stringAbonnement = new Abonnement<string>(initiellVerdi);
+    numberAbonnement = new Abonnement<number>();
+    joinedAbonnent = jest.fn();
+    joinedAbonnement = new JoinedAbonnement([
+      stringAbonnement,
+      numberAbonnement,
+    ]);
 
-  beforeEach(() => (stringAbonnement = new Abonnement<string>(initiellVerdi)));
-  beforeEach(() => (numberAbonnement = new Abonnement<number>()));
-  beforeEach(() => (joinedAbonnent = jest.fn()));
-  beforeEach(
-    () =>
-      (joinedAbonnement = new JoinedAbonnement([
-        stringAbonnement,
-        numberAbonnement,
-      ]))
-  );
-  beforeEach(() => joinedAbonnement.abonner(joinedAbonnent));
+    joinedAbonnementId = joinedAbonnement.abonner(joinedAbonnent);
+  });
 
-  it("blir kallt initielt", () => expect(joinedAbonnent).toHaveBeenCalled());
-  it("blir kallt initielt", () =>
+  it('blir kallt initielt', () => expect(joinedAbonnent).toHaveBeenCalled());
+  it('blir kallt initielt', () =>
     expect(lastCall(joinedAbonnent)).toEqual([initiellVerdi, undefined]));
 
-  describe("kalles nå en av verdiene endrer seg", () => {
+  describe('kalles nå en av verdiene endrer seg', () => {
     beforeEach(() => numberAbonnement.varsle(2));
-    it("oppdatert", () => expect(joinedAbonnent).toHaveBeenCalledTimes(2));
-    it("oppdatert", () =>
+    it('oppdatert', () => expect(joinedAbonnent).toHaveBeenCalledTimes(2));
+    it('oppdatert', () =>
       expect(lastCall(joinedAbonnent)).toEqual([initiellVerdi, 2]));
   });
 
-  describe("kalles nå en av verdiene endrer seg selvom den er undefined", () => {
-    beforeEach(() => stringAbonnement.varsle(undefined));
-    it("oppdatert", () => expect(joinedAbonnent).toHaveBeenCalledTimes(2));
-    it("oppdatert", () =>
+  describe('kalles nå en av verdiene endrer seg selvom den er undefined', () => {
+    beforeEach(() => stringAbonnement.varsle(undefined as any));
+    it('oppdatert', () => expect(joinedAbonnent).toHaveBeenCalledTimes(2));
+    it('oppdatert', () =>
       expect(lastCall(joinedAbonnent)).toEqual([undefined, undefined]));
 
-    it("begge oppdatert", () => {
-      stringAbonnement.varsle("EN");
+    it('begge oppdatert', () => {
+      stringAbonnement.varsle('EN');
       numberAbonnement.varsle(2);
       expect(joinedAbonnent).toHaveBeenCalledTimes(4);
-      expect(lastCall(joinedAbonnent)).toEqual(["EN", 2]);
+      expect(lastCall(joinedAbonnent)).toEqual(['EN', 2]);
+    });
+  });
+  describe('avslutt alle abonneter', () => {
+    beforeEach(() => {
+      joinedAbonnement.avslutt(joinedAbonnementId);
+      stringAbonnement.varsle(nyVerdi);
+      numberAbonnement.varsle(22);
+
+      expect(stringAbonnement).toBeDefined();
+    });
+
+    it('abonnent er fjernet fra liste over abonnenter', () => {
+      expect(stringAbonnement.__test.abonnenter.length).toEqual(0);
+      expect(numberAbonnement.__test.abonnenter.length).toEqual(0);
+    });
+
+    it('abonnent blir ikke kallt selvom abonnementstilbyder oppdaterer', () => {
+      expect(stringAbonnent).not.toHaveBeenCalled();
+      expect(numberAbonnent).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe('AlleAbonnenter', () => {
+  let alleAbonnenter: Abonnement<any>;
+  let alleAbonnenterId: number;
+  let alleSpy: jest.Mock;
+
+  beforeEach(() => {
+    stringAbonnement = new Abonnement<string>(undefined);
+    numberAbonnement = new Abonnement<number>(undefined);
+    alleSpy = jest.fn();
+    alleAbonnenter = new AlleAbonnementer([stringAbonnement, numberAbonnement]);
+    alleAbonnenterId = alleAbonnenter.abonner(alleSpy);
+  });
+
+  it('blir ikke  kallt initielt', () => expect(alleSpy).not.toHaveBeenCalled());
+
+  describe('kalles ikke om kun  en av verdiene er definert', () => {
+    beforeEach(() => numberAbonnement.varsle(2));
+    it('oppdatert', () => expect(alleSpy).not.toHaveBeenCalled());
+  });
+
+  describe('kalles kun om alle verdier er definert', () => {
+    beforeEach(() => stringAbonnement.varsle(undefined as any));
+    beforeEach(() => numberAbonnement.varsle(2));
+    it('oppdatert', () => expect(alleSpy).not.toHaveBeenCalled());
+    it('begge oppdatert', () => {
+      stringAbonnement.varsle('EN');
+      expect(alleSpy).toHaveBeenCalledTimes(1);
+      expect(lastCall(alleSpy)).toEqual(['EN', 2]);
     });
   });
 
-  describe("AlleAbonnenter", () => {
-    let stringAbonnement: Abonnement<string>;
-    let numberAbonnement: Abonnement<number>;
-    let alleAbonnenter: Abonnement<any>;
-    let alleSpy: jest.Mock;
+  describe('kalles ikke om en verdi går tilbake til undef', () => {
+    beforeEach(() => stringAbonnement.varsle('EN'));
+    beforeEach(() => numberAbonnement.varsle(2));
+    it('oppdatert', () => expect(alleSpy).toHaveBeenCalledTimes(1));
+    it('begge oppdatert', () => {
+      stringAbonnement.varsle(undefined as any);
+      expect(alleSpy).toHaveBeenCalledTimes(1);
+      expect(lastCall(alleSpy)).toEqual(['EN', 2]);
+    });
+  });
 
-    beforeEach(() => (stringAbonnement = new Abonnement<string>(undefined)));
-    beforeEach(() => (numberAbonnement = new Abonnement<number>(undefined)));
+  describe('avslutt alle abonneter', () => {
+    beforeEach(() => {
+      alleAbonnenter.avslutt(alleAbonnenterId);
+      stringAbonnement.varsle(nyVerdi);
+      numberAbonnement.varsle(22);
 
-    beforeEach(() => (alleSpy = jest.fn()));
-    beforeEach(
-      () =>
-        (alleAbonnenter = new AlleAbonnementer([
-          stringAbonnement,
-          numberAbonnement,
-        ]))
-    );
-    beforeEach(() => alleAbonnenter.abonner(alleSpy));
-
-    it("blir ikke  kallt initielt", () =>
-      expect(alleSpy).not.toHaveBeenCalled());
-
-    describe("kalles ikke om kun  en av verdiene er definert", () => {
-      beforeEach(() => numberAbonnement.varsle(2));
-      it("oppdatert", () => expect(alleSpy).not.toHaveBeenCalled());
+      expect(stringAbonnement).toBeDefined();
     });
 
-    describe("kalles kun om alle verdier er definert", () => {
-      beforeEach(() => stringAbonnement.varsle(undefined));
-      beforeEach(() => numberAbonnement.varsle(2));
-      it("oppdatert", () => expect(alleSpy).not.toHaveBeenCalled());
-      it("begge oppdatert", () => {
-        stringAbonnement.varsle("EN");
-        expect(alleSpy).toHaveBeenCalledTimes(1);
-        expect(lastCall(alleSpy)).toEqual(["EN", 2]);
-      });
+    it('abonnent er fjernet fra liste over abonnenter', () => {
+      expect(stringAbonnement.__test.abonnenter.length).toEqual(0);
+      expect(numberAbonnement.__test.abonnenter.length).toEqual(0);
     });
 
-    describe("kalles ikke om en verdi går tilbake til undef", () => {
-      beforeEach(() => stringAbonnement.varsle("EN"));
-      beforeEach(() => numberAbonnement.varsle(2));
-      it("oppdatert", () => expect(alleSpy).toHaveBeenCalledTimes(1));
-      it("begge oppdatert", () => {
-        stringAbonnement.varsle(undefined);
-        expect(alleSpy).toHaveBeenCalledTimes(1);
-        expect(lastCall(alleSpy)).toEqual(["EN", 2]);
-      });
+    it('abonnent blir ikke kallt selvom abonnementstilbyder oppdaterer', () => {
+      expect(stringAbonnent).not.toHaveBeenCalled();
+      expect(numberAbonnent).not.toHaveBeenCalled();
     });
   });
 });
